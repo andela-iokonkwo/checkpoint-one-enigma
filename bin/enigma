@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+require 'enigma'
+
+send(ARGV[0])
+
+def file_name
+  ARGV[1]
+end
+
+def output_file_name
+  ARGV[2]
+end
+def encrypt
+  puts Enigma::Encrypt.new.call(file_name, output_file_name)
+end
+
+def decrypt
+  key = ARGV[3]
+  date = ARGV[4]
+  puts Enigma::Decrypt.new(date, key).decrypt(file_name, output_file_name)
+end
+
+# def crack
+#   date = ARGV[3]
+#   EnigmaEngine::Crack.new.crack(message, new_file, date)
+# end
