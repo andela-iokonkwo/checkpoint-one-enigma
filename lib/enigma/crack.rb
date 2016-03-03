@@ -2,9 +2,10 @@ module Enigma
   class Crack
     def initialize(date, file_name)
       @file_name = file_name
-      key = KeyGen.new(file_name)
-      key_gen = EnigmaKey.new(date, key)
-      @engine = Engine.new(key_gen, file_store)
+      file_store = FileStore.new
+      key = Cracker.new(file_name, file_store, date).generate_key
+      enigma_key = EnigmaKey.new(date, key)
+      @engine = Engine.new(enigma_key, file_store)
     end
 
     def call(output_file_name)

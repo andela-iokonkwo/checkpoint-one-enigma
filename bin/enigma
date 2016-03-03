@@ -1,28 +1,93 @@
 #!/usr/bin/env ruby
 
 require 'bundler/setup'
-require 'enigma'
+require "enigma"
 
-send(ARGV[0])
+class Cli
+  def initialize(argv)
+    @argv = argv
+    send(argv[0])
+  end
 
-def file_name
-  ARGV[1]
+  def file_name
+    @argv[1]
+  end
+
+  def output_file_name
+    @argv[2]
+  end
+
+  def encrypt
+    puts Enigma::Encrypt.new.call(file_name, output_file_name)
+  end
+
+  def decrypt
+    key = @argv[3]
+    date = @argv[4]
+    unless date_valid?(date)
+      display_date_invalid
+      return
+    end
+    unless key_valid?(key)
+      display_key_invalid
+      return
+    end
+    puts Enigma::Decrypt.new(date, key).call(file_name, output_file_name)
+  end
+
+  def crack
+    date = @argv[3]
+    unless date_valid?(date)
+      display_date_invalid
+      return
+    end
+    puts Enigma::Crack.new(date, file_name).call(output_file_name)
+  end
+
+  def key_valid?(key)
+    key.to_s.length.eql? 5
+  end
+
+  def date_valid?(date)
+    date.to_s.length.eql? 6
+  end
+
+  def display_date_invalid
+    puts "The date you entered is invalid. Date must be 6 characters"
+  end
+
+  def display_key_invalid
+    puts "The key you entered is invalid. Key must be 5 characters"
+  end
+
+  def help
+    puts <<-help_message
+88888888b 888888ba  dP  .88888.  8888ba.88ba   .d888888
+ 88        88    `8b 88 d8'   `88 88  `8b  `8b d8'    88
+a88aaaa    88     88 88 88        88   88   88 88aaaaa88a
+ 88        88     88 88 88   YP88 88   88   88 88     88
+ 88        88     88 88 Y8.   .88 88   88   88 88     88
+ 88888888P dP     dP dP  `88888'  dP   dP   dP 88     88
+oooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+Intro
+====================================
+Hello there, welcome to the Enigma Encryption Engine! This program simulates the Enigma Machine used in World War II by the Germans.
+Find out more on 'https://github.com/andela-iokonkwo/enigma')
+Usage
+====================================
+1. Encrypting a file
+   `enigma encrypt [file_name.txt] [new_file.txt]`
+2. Decrypting a file
+   `enigma decrypt [encrypted_file.txt] [new_file.txt] [five_digit_key] [date]`
+3. Cracking a file
+  `enigma crack [file_name.txt] [new_file.txt] [date]`
+All date should be in the format DDMMYY e.g. 020416
+AUTHOR
+=====================================
+Copyright (c) 2016 Okonkwo Vincent Ikem
+----------------------------------------------------------------------
+help_message
+  end
 end
 
-def output_file_name
-  ARGV[2]
-end
-def encrypt
-  puts Enigma::Encrypt.new.call(file_name, output_file_name)
-end
-
-def decrypt
-  key = ARGV[3]
-  date = ARGV[4]
-  puts Enigma::Decrypt.new(date, key).decrypt(file_name, output_file_name)
-end
-
-# def crack
-#   date = ARGV[3]
-#   EnigmaEngine::Crack.new.crack(message, new_file, date)
-# end
+Cli.new(ARGV)

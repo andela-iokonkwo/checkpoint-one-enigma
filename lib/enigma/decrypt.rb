@@ -2,8 +2,9 @@ module Enigma
   class Decrypt
 
     def initialize(date, key)
-      key_gen = EnigmaKey.new(date, key)
-      @engine = Engine.new(key_gen, file_store)
+      enigma_key = EnigmaKey.new(date, key)
+      file_store = FileStore.new
+      @engine = Engine.new(enigma_key, file_store)
     end
 
     def call(file_name, output_file_name)

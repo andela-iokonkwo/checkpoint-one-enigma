@@ -1,11 +1,14 @@
-require "off_set"
-require "rotation"
-require "enigma_key"
-require "file_store"
-require "engine"
-require "crack"
-require "encrypt"
-require "decrypt"
+require "enigma/off_set"
+require "enigma/rotation"
+require "enigma/enigma_key"
+require "enigma/file_store"
+require "enigma/character_mapper"
+
+require "enigma/engine"
+require "enigma/cracker"
+require "enigma/crack"
+require "enigma/decrypt"
+require "enigma/encrypt"
 require "enigma/version"
 
 module Enigma

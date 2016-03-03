@@ -1,4 +1,4 @@
-module enigma
+module Enigma
   class OffSet
     attr_reader :date
     def initialize(date)

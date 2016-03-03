@@ -1,8 +1,8 @@
 module Enigma
   class EnigmaKey
-    attr_reader :rotation
+
     def initialize(date = today, key = rand_key)
-      @offset = Offset.new(today)
+      @offset = OffSet.new(date)
       @rotation = Rotation.new(key)
     end
 
@@ -13,6 +13,14 @@ module Enigma
 
     def rand_key
       rand(999_99).to_s.center(5, rand(9).to_s)
+    end
+
+    def key
+      @rotation.key
+    end
+
+    def date
+      @offset.date
     end
 
     def a
