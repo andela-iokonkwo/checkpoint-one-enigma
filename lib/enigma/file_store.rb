@@ -2,8 +2,7 @@ module Enigma
   class FileStore
     def get(file_name)
       return @data if @data
-      file = File.open(file_name, 'r')
-      if File.exist? file
+      File.open(file_name, 'r') do |file|
         data = file.read
         data.gsub(/\n/, ' ')
         @data = data.split("")
