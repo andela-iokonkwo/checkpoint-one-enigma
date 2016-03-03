@@ -5,7 +5,7 @@ module Enigma
     def initialize(file_name, file_store, date)
       @file_store = file_store
       @offset = OffSet.new(date)
-      enigma_key(file_name)
+      encryption_key(file_name)
     end
 
     def map_encrypted_to_known_values(file_name)
@@ -17,12 +17,12 @@ module Enigma
       encrypted_chars.zip(known_chars)
     end
 
-    def enigma_key(file_name)
+    def encryption_key(file_name)
       context = map_encrypted_to_known_values(file_name)
-      @enigma_key = []
+      @encryption_key = []
       (0..3).each do |index|
         current_set = context[index]
-        @enigma_key[index] = calculate_diff(current_set)
+        @encryption_key[index] = calculate_diff(current_set)
       end
     end
 
@@ -32,10 +32,10 @@ module Enigma
 
     def generate_key
       @normal_keys = []
-      @normal_keys[0] = @enigma_key[0] - @offset.a
-      @normal_keys[1] = @enigma_key[1] - @offset.b
-      @normal_keys[2] = @enigma_key[2] - @offset.c
-      @normal_keys[3] = @enigma_key[3] - @offset.d
+      @normal_keys[0] = @encryption_key[0] - @offset.a
+      @normal_keys[1] = @encryption_key[1] - @offset.b
+      @normal_keys[2] = @encryption_key[2] - @offset.c
+      @normal_keys[3] = @encryption_key[3] - @offset.d
       generate_normal_key
     end
 

@@ -1,9 +1,8 @@
 module Enigma
-  class EnigmaKey
-
+  class EncryptionKey
     def initialize(date = today, key = rand_key)
       @offset = OffSet.new(date)
-      @rotation = Rotation.new(key)
+      @key = Key.new(key)
     end
 
     def today
@@ -16,7 +15,7 @@ module Enigma
     end
 
     def key
-      @rotation.key
+      @key.key
     end
 
     def date
@@ -24,19 +23,19 @@ module Enigma
     end
 
     def a
-      @offset.a + @rotation.a
+      @offset.a + @key.a
     end
 
     def b
-      @offset.b + @rotation.b
+      @offset.b + @key.b
     end
 
     def c
-      @offset.c + @rotation.c
+      @offset.c + @key.c
     end
 
     def d
-      @offset.d + @rotation.d
+      @offset.d + @key.d
     end
   end
 end

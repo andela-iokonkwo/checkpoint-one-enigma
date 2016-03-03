@@ -2,15 +2,15 @@ module Enigma
   class Engine
     include CharacterMapper
 
-    def initialize(enigma_key, file_store)
-      @enigma_key = enigma_key
+    def initialize(encryption_key, file_store)
+      @encryption_key = encryption_key
       @file_store = file_store
       @encryption_type = [:a, :b, :c, :d]
     end
 
     def key_and_date
-      key = @enigma_key.key
-      date = @enigma_key.date
+      key = @encryption_key.key
+      date = @encryption_key.date
       [key, date]
     end
 
@@ -23,11 +23,11 @@ module Enigma
     end
 
     def generate_message(text, &block)
-      enigma_key_index = 0
+      encryption_key_index = 0
       text.map do |char|
-        position = @enigma_key.send(@encryption_type[enigma_key_index])
-        enigma_key_index += 1
-        enigma_key_index = 0 if enigma_key_index == 4
+        position = @encryption_key.send(@encryption_type[encryption_key_index])
+        encryption_key_index += 1
+        encryption_key_index = 0 if encryption_key_index == 4
         rotate_single(char, position, &block)
       end
     end

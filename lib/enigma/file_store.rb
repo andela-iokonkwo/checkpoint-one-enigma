@@ -19,9 +19,7 @@ module Enigma
     end
 
     def report_message(new_file, key, date)
-      # "Created: #{green(new_file)}\nKey: #{red(key)}\nDate: #{blue(date)}#{msg}"
        "Created: #{new_file}\nKey: #{key}\nDate: #{date}"
     end
-
   end
 end

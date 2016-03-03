@@ -1,5 +1,5 @@
 module Enigma
-  class Rotation
+  class Key
     attr_reader :key
     def initialize(key)
       @key = key.to_s.split('')

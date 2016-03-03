@@ -1,6 +1,6 @@
 require "enigma/off_set"
-require "enigma/rotation"
-require "enigma/enigma_key"
+require "enigma/key"
+require "enigma/encryption_key"
 require "enigma/file_store"
 require "enigma/character_mapper"
 

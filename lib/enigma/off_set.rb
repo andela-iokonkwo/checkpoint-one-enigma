@@ -11,10 +11,6 @@ module Enigma
       @last_four ||= @date_squared.to_s.split('')[-4, 4].map(&:to_i)
     end
 
-    def get_date(index)
-      @date[index].to_i
-    end
-
     def a
       last_four[0]
     end
