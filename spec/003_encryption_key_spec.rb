@@ -29,9 +29,9 @@ describe Enigma::EncryptionKey do
 
   describe "#today" do
     it do
-     allow(Time).to receive(:now) { Time.new(2016, 03, 03, 22, 25, 45, "+01:00") }
-     expect(subject.today).to eq "030316"
-   end
+      allow(Time).to receive(:now) { Time.new(2016, 03, 03, 22, 25, 45, "+01:00") }
+      expect(subject.today).to eq "030316"
+    end
   end
 
   describe "#a" do

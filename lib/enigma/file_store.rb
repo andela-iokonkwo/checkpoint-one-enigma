@@ -1,8 +1,12 @@
 module Enigma
   class FileStore
+    def initialize(io = File)
+      @io = io
+    end
+
     def get(file_name)
       return @data if @data
-      File.open(file_name, 'r') do |file|
+      @io.open(file_name, 'r') do |file|
         data = file.read
         data.gsub(/\n/, ' ')
         @data = data.split("")
@@ -12,7 +16,7 @@ module Enigma
     end
 
     def create(txt, file_name)
-      File.open(file_name, 'w') do |file|
+      @io.open(file_name, 'w') do |file|
         file.write(txt)
       end
     end
