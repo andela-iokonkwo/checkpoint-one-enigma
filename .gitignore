@@ -7,3 +7,6 @@
 /pkg/
 /spec/reports/
 /tmp/
+message.txt
+encrypted.txt
+decrypted.txt

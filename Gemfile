@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-gem "pry"
-
+require 'pp' #https://github.com/defunkt/fakefs/issues/99
 # Specify your gem's dependencies in enigma.gemspec
 gemspec
