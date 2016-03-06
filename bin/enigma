@@ -24,14 +24,8 @@ class Cli
   def decrypt
     key = @argv[3]
     date = @argv[4]
-    unless date_valid?(date)
-      display_date_invalid
-      return
-    end
-    unless key_valid?(key)
-      display_key_invalid
-      return
-    end
+    return display_key_invalid unless key_valid?(key)
+    return display_date_invalid unless date_valid?(date)
     puts Enigma::Decrypt.new(date, key).call(file_name, output_file_name)
   end
 
@@ -41,15 +35,15 @@ class Cli
       display_date_invalid
       return
     end
-    puts Enigma::Crack.new(date, file_name).call(output_file_name)
+    puts Enigma::Crack.new(date, file_name).call(file_name, output_file_name)
   end
 
   def key_valid?(key)
-    key.to_s.length.eql? 5
+    key.to_s.length == 5
   end
 
   def date_valid?(date)
-    date.to_s.length.eql? 6
+    date.to_s.length == 6
   end
 
   def display_date_invalid
